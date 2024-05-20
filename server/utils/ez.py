@@ -106,7 +106,7 @@ import pandas as pd
 import joblib
 
 # Load the dataset
-data = pd.read_csv("ez_data.csv")
+data = pd.read_csv("utils/ez_data.csv")
 
 # Separate features (X) and target variable (y)
 X = data.drop(columns=["Experience Level"])

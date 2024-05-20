@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Roadmap from './RoadMap';
 import axiosInstance from "../Helper/axiosInstance"
-function App() {
+function Map() {
     const [techStack, setTechStack] = useState("");
     const [level, setLevel] = useState('');
 
@@ -11,11 +11,11 @@ function App() {
         })
     }, [])
     return (
-        <div className="App">
+        <div className="Map">
             <h1>Roadmap</h1>
             <Roadmap techStack={techStack} level={level} />
         </div>
     );
 }
 
-export default App;
+export default Map;

@@ -123,6 +123,11 @@ const DisplayLectures = () => {
               Create a Note
             </Link>
           </div>
+          <div>
+            <Link to={"/roadmap"}>
+              Generate RoadMap
+            </Link>
+          </div>
         </div>
       </div>
     </Layout>

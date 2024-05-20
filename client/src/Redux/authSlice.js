@@ -190,6 +190,7 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.data = action?.payload?.user;
         state.role = action?.payload?.user?.role;
+        state.subStatus = action?.payload?.user?.subscription?.status;
       })
       // for user logout
       .addCase(logout.fulfilled, (state) => {
@@ -201,9 +202,11 @@ const authSlice = createSlice({
       .addCase(getUserData.fulfilled, (state, action) => {
         localStorage.setItem("data", JSON.stringify(action?.payload?.user));
         localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("subStatus", action?.payload?.user?.subscription?.status)
         state.isLoggedIn = true;
         state.data = action?.payload?.user;
         state.role = action?.payload?.user?.role;
+        state.subStatus = action?.payload?.user?.subscription?.status;
       });
   },
 });

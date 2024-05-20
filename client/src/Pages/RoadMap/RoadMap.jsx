@@ -1,95 +1,70 @@
-// import React, { useState } from 'react'
-// import axiosInstance from "../../Helper/axiosInstance"
-// function RoadMap() {
-//     const [year, setYear] = useState('');
-//     const [familiraty, setFamilarity] = useState("");
-//     const [stack, setStack] = useState("");
-
-//     const handleSubmit = async () => {
-//         const res = await axiosInstance.post("/level/predict", {
-//             year, familiraty, stack
-//         })
-//         console.log(res);
-//     }
-//     return (
-//         <div className="h-screen flex flex-col items-center justify-center bg-slate-900">
-//             <h1 className="text-3xl font-bold">Roadmap Questionaries</h1>
-//             <label htmlFor="yearOfExperience" className='text-left'>
-//                 Year Of Experience
-//             </label>
-//             <input type="text" placeholder='YearOfExperience' className='px-3 py-2 rounded-md bg-white text-black' onChange={setYear} />
-//             <label htmlFor="">
-//                 Familarity with Concept
-//             </label>
-//             <input type="text" name="" id="" placeholder='Familarity with Concept' onChange={setFamilarity} className='px-3 py-2 rounded-md bg-white text-black' />
-//             <label htmlFor="TechStack">
-//                 TechStack
-//             </label>
-//             <input type="text" name="" id="" placeholder='TechStack' onChange={setStack} className='px-3 py-2 rounded-md bg-white text-black' />
-//             <button onClick={handleSubmit} className='px-3 py-2 bg-[#0095ff] text-white mt-4 w-52 rounded-lg'>Submit</button>
-//         </div>
-//     )
-// }
-
-// export default RoadMap
-
-
-
-
 import React, { useState } from 'react';
 import axiosInstance from "../../Helper/axiosInstance";
+import Roadmap from '../RoadMap';
+import axios from 'axios';
 
 function RoadMap() {
-    const [YearsOfExperience, setYear] = useState('');
-    const [FamilarityWithConcept, setFamilarity] = useState('');
-    const [techStack, setStack] = useState('');
-
+    const [YearsOfExperience, setYearsOfExperience] = useState(0);
+    const [FamilarityWithConcept, setFamiliarityWithConcept] = useState("");
+    const [techStack, setTechStack] = useState('ml');
+    const [level, setLevel] = useState('')
     const handleSubmit = async () => {
         try {
-            const res = await axiosInstance.post("/level/predict", {
-                YearsOfExperience, FamilarityWithConcept, techStack
-            });
-            console.log(res);
-        } catch (error) {
-            console.error("There was an error!", error);
+            const res = await axios.post("http://localhost:8081/api/v1/level/predict",
+                {
+                    YearsOfExperience: Number(YearsOfExperience),
+                    FamilarityWithConcept: FamilarityWithConcept,
+                    techStack: techStack
+                }
+            )
+            // console.log(res);
+            // console.log(res.data.data.predictedLevel);
+            setLevel(res.data.data.predictedLevel)
+        } catch (e) {
+            console.log(e);
         }
     };
-
     return (
         <div className="h-screen flex flex-col items-center justify-center bg-slate-900">
             <h1 className="text-3xl font-bold">Roadmap Questionnaires</h1>
-            <label htmlFor="yearOfExperience" className='text-left'>
-                Year Of Experience
-            </label>
-            <input
-                type="text"
-                placeholder='Year Of Experience'
-                className='px-3 py-2 rounded-md bg-white text-black'
-                onChange={(e) => setYear(e.target.value)}
-            />
-            <label htmlFor="familarityWithConcept">
+            <label htmlFor="familiarityWithConcept">
                 Familiarity with Concept
             </label>
             <input
+                value={FamilarityWithConcept}
                 type="text"
-                name="familarityWithConcept"
-                id="familarityWithConcept"
+                id="familiarityWithConcept"
                 placeholder='Familiarity with Concept'
-                onChange={(e) => setFamilarity(e.target.value)}
+                onChange={(e) => setFamiliarityWithConcept(e.target.value)}
+                className='px-3 py-2 rounded-md bg-white text-black'
+            />
+            <label htmlFor="familiarityWithConcept">
+                Year of experience
+            </label>
+            <input
+                value={YearsOfExperience}
+                type="number"
+                id="YearsOfExperience"
+                placeholder='Years Of Experience'
+                onChange={(e) => setYearsOfExperience(e.target.value)}
                 className='px-3 py-2 rounded-md bg-white text-black'
             />
             <label htmlFor="techStack">
                 Tech Stack
             </label>
             <input
+                value={techStack}
                 type="text"
-                name="techStack"
                 id="techStack"
                 placeholder='Tech Stack'
-                onChange={(e) => setStack(e.target.value)}
+                onChange={(e) => setTechStack(e.target.value)}
                 className='px-3 py-2 rounded-md bg-white text-black'
             />
-            <button onClick={handleSubmit} className='px-3 py-2 bg-[#0095ff] text-white mt-4 w-52 rounded-lg'>Submit</button>
+            <button onClick={handleSubmit} className='px-3 py-2 bg-[#0095ff] text-white mt-4 w-52 rounded-lg'>Submit
+            </button>
+            <div className="">
+                <Roadmap techStack={techStack} level={level} />
+            </div>
         </div>
     );
 }

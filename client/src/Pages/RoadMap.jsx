@@ -9,24 +9,23 @@ import mlAdvanced from '../Assets/RoadmapImg/mlAdvanced.png';
 
 const Roadmap = ({ techStack, level }) => {
     const [roadmapImage, setRoadmapImage] = useState(null);
-
     useEffect(() => {
         switch (techStack) {
             case 'web development':
-                if (level === 'beginner') {
+                if (level === 'Beginner') {
                     setRoadmapImage(webDevBeginner);
-                } else if (level === 'intermediate') {
+                } else if (level === 'Intermediate') {
                     setRoadmapImage(webDevIntermediate);
-                } else if (level === 'advanced') {
+                } else if (level === 'Advanced') {
                     setRoadmapImage(webDevAdvanced);
                 }
                 break;
             case 'ml':
-                if (level === 'beginner') {
+                if (level === 'Beginner') {
                     setRoadmapImage(mlBeginner);
-                } else if (level === 'intermediate') {
+                } else if (level === 'Intermediate') {
                     setRoadmapImage(mlIntermediate);
-                } else if (level === 'advanced') {
+                } else if (level === 'Advanced') {
                     setRoadmapImage(mlAdvanced);
                 }
                 break;
@@ -34,8 +33,7 @@ const Roadmap = ({ techStack, level }) => {
                 setRoadmapImage(null);
                 break;
         }
-    }, [techStack, level]);
-
+    }, [level, techStack])
     return (
         <div>
             {roadmapImage ? (

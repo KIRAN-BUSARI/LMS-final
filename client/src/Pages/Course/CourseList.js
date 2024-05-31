@@ -17,10 +17,10 @@ const Courses = () => {
   return (
     <Layout>
       {/* courses container for displaying the cards */}
-      <div className="min-h-[90vh] pt-12 pl-20 flex flex-col flex-wrap gap-10 text-white">
-        <h1 className="text-center text-3xl font-semibold">
+      <div className="min-h-[90vh] pt-10 pl-10 sm:pl-20 flex flex-col flex-wrap gap-10 text-white">
+        <h1 className="text-center text-2xl sm:text-3xl font-semibold flex flex-col sm:flex-row sm:flex sm:text-center sm:justify-center">
           Explore the courses made by{" "}
-          <span className="font-bold text-yellow-500">Industry Experts</span>
+          <span className="font-bold ml-2 mt-1 sm:text-2xl text-xl text-yellow-500">Industry Experts</span>
         </h1>
 
         {/* wrapper for courses card */}

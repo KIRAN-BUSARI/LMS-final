@@ -1,48 +1,59 @@
 import React from "react";
-import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
-import { FaFacebook, FaFacebookF, FaFacebookSquare } from "react-icons/fa"
-import { FaXTwitter, FaSquareXTwitter, FaSquareFacebook } from 'react-icons/fa6';
+import { FaFacebookSquare, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
+
 const Footer = () => {
   const newDate = new Date();
   const year = newDate.getFullYear();
 
   return (
-    <>
-      {/* adding the footer */}
-      <footer className="relative left-0 bottom-0 h-[10vh] py-5 flex flex-col sm:flex-row items-center justify-between sm:px-20 text-[#0095ff] bg-black">
-        {/* adding copyright section */}
-        <section className="text-lg">
-          Copyright {year} | All Rights Reserved
-        </section>
+    <footer className="py-6 bg-gray-900 text-white text-center sm:text-left">
+      <div className="container mx-auto px-4">
+        {/* Copyright section */}
+        <div className="sm:flex sm:justify-between">
 
-        {/* adding the social media section */}
-        <section className="flex items-center justify-center gap-5 text-2xl text-[#0095ff]">
-          <a
-            className="hover:text-[#3b5998] text-3xl transition-all ease-in-out duration-300"
-            href="https://facebook.com/" target="_blank" rel="noreferrer">
-            {/* <BsFacebook /> */}
-            <FaFacebookSquare />
-          </a>
-          <a
-            className="hover:text-[#d62976] transition-all ease-in-out duration-300"
-            href="https://instagram.com/" target="_blank" rel="noreferrer">
-            <BsInstagram />
-          </a>
-          <a
-            className="hover:text-[#007bb5] transition-all ease-in-out duration-300"
-            href="https://twitter.com" target="_blank" rel="noreferrer">
-            {/* <BsTwitter/> */}
-            <FaXTwitter />
-            {/* <FaSquareXTwitter/> */}
-          </a>
-          <a
-            className="hover:text-[#0072b1] transition-all ease-in-out duration-300"
-            href="https://linkedin.com/" target="_blank" rel="noreferrer">
-            <BsLinkedin />
-          </a>
-        </section>
-      </footer>
-    </>
+
+          <div className="mb-4 sm:mb-0">
+            <p className="text-lg font-semibold">© {year} Your Company Name. All rights reserved.</p>
+          </div>
+
+          {/* Social media icons */}
+          <div className="flex justify-center sm:justify-end items-center mt-4 sm:mt-0">
+            <a
+              href="https://facebook.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-3xl sm:text-4xl mx-2 hover:text-blue-600 transition-colors duration-300"
+            >
+              <FaFacebookSquare />
+            </a>
+            <a
+              href="https://instagram.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-3xl sm:text-4xl mx-2 hover:text-pink-500 transition-colors duration-300"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://twitter.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-3xl sm:text-4xl mx-2 hover:text-blue-400 transition-colors duration-300"
+            >
+              <FaTwitter />
+            </a>
+            <a
+              href="https://linkedin.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-3xl sm:text-4xl mx-2 hover:text-blue-700 transition-colors duration-300"
+            >
+              <FaLinkedin />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };
 

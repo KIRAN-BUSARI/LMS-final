@@ -14,7 +14,6 @@ const Login = () => {
     password: "",
   });
 
-  // function to handle the user input
   const handleUserInput = (event) => {
     const { name, value } = event.target;
     setLoginData({
@@ -23,23 +22,18 @@ const Login = () => {
     });
   };
 
-  // function to login
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    // checking the empty fields
     if (!loginData.email || !loginData.password) {
       toast.error("Please fill all the fields");
       return;
     }
 
-    // calling login action
     const res = await dispatch(login(loginData));
 
-    // redirect to home page if true
     if (res?.payload?.success) navigate("/");
 
-    // clearing the login inputs
     setLoginData({
       email: "",
       password: "",
@@ -48,13 +42,13 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="flex items-center text-white justify-center h-[100vh]">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
         <form
           onSubmit={handleLogin}
-          className="flex flex-col justify-center gap-4 rounded-lg p-4 w-80 h-[26rem] shadow-[0_0_15px_black]"
+          className="flex flex-col justify-center gap-6 p-8 bg-gray-900 bg-opacity-90 rounded-lg shadow-lg w-full max-w-sm mx-4"
         >
-          <h1 className="text-center text-2xl font-bold text-[#0095ff]">Login Page</h1>
-          <div className="flex flex-col gap-1">
+          <h1 className="text-center text-4xl font-extrabold text-[#0095ff]">Login</h1>
+          <div className="flex flex-col gap-2">
             <label className="text-lg font-semibold text-[#0095ff]" htmlFor="email">
               Email
             </label>
@@ -64,13 +58,13 @@ const Login = () => {
               name="email"
               id="email"
               placeholder="Enter your email"
-              className="bg-transparent px-2 py-1 border border-[#0095ff] text-white"
+              className="px-4 py-2 border border-[#0095ff] rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0095ff] transition duration-200"
               value={loginData.email}
               onChange={handleUserInput}
             />
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-2">
             <label className="text-lg font-semibold text-[#0095ff]" htmlFor="password">
               Password
             </label>
@@ -80,38 +74,37 @@ const Login = () => {
               name="password"
               id="password"
               placeholder="Enter your password"
-              className="bg-transparent px-2 py-1 border border-[#0095ff] text-white"
+              className="px-4 py-2 border border-[#0095ff] rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0095ff] transition duration-200"
               value={loginData.password}
               onChange={handleUserInput}
             />
           </div>
 
-          {/* guest account access */}
           <div
             onClick={() =>
               setLoginData({ email: "test@gmail.com", password: "Test@123" })
             }
-            className="text-center link text-[#0095ff] cursor-pointer"
+            className="text-center text-[#0095ff] cursor-pointer hover:underline transition duration-200"
           >
             Guest Login
           </div>
 
           <button
-            className="w-full bg-[#0095ff] text-white hover:border hover:border-[#0095ff] hover:bg-[#fff] hover:text-[#0095ff] transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer"
+            className="w-full py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-[#0095ff] border border-transparent rounded-md hover:bg-white hover:text-[#0095ff] hover:border-[#0095ff] focus:outline-none focus:ring-2 focus:ring-[#0095ff] focus:ring-opacity-50"
             type="submit"
           >
             Login
           </button>
 
           <Link to={"/forgetpassword"}>
-            <p className="text-center link text-[#0095ff] cursor-pointer">
-              Forget Password
+            <p className="text-center text-[#0095ff] cursor-pointer hover:underline transition duration-200">
+              Forget Password?
             </p>
           </Link>
 
           <p className="text-center">
-            Don't have an account ?{" "}
-            <Link to={"/signup"} className="link text-[#0095ff]   cursor-pointer">
+            Don't have an account?{" "}
+            <Link to={"/signup"} className="text-[#0095ff] cursor-pointer hover:underline transition duration-200">
               Create Account
             </Link>
           </p>

@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   // for checking user logged in or not
   const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
 
-  // for dispaying the options, according to user role
+  // for displaying the options, according to user role
   const role = useSelector((state) => state?.auth?.role);
 
   // function to hide the drawer on close button click
@@ -44,9 +44,9 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-[90vh] bg-black">
+    <div className="min-h-screen bg-black">
       {/* adding the daisy ui drawer */}
-      <div className="drawer absolute z-50 left-0 w-fit">
+      <div className="drawer fixed z-50 left-0 w-fit">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           <label htmlFor="my-drawer" className="cursor-pointer relative">
@@ -60,9 +60,9 @@ const Layout = ({ children }) => {
 
         <div className="drawer-side w-0">
           <label htmlFor="my-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-48 sm:w-80 bg-black text-[#0095ff] relative">
+          <ul className="menu p-4 w-48 sm:w-80 bg-black text-[#0095ff]">
             {/* close button for drawer */}
-            <li className="w-fit absolute right-2 z-50">
+            <li className="w-fit absolute right-2 top-2 z-50">
               <button onClick={hideDrawer}>
                 <AiFillCloseCircle size={24} />
               </button>
@@ -99,33 +99,32 @@ const Layout = ({ children }) => {
             {/* if user is not logged in */}
             {!isLoggedIn && (
               <li className="absolute bottom-4 w-[90%]">
-                <div className="w-full flex items-center justify-center">
-                  <Link to={"/login"} className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-1 font-semibold rounded-md w-full hover:transition-all hover:ease-in-out hover:duration-300">
-                    <button className="">
+                <div className="w-full flex flex-col space-y-2 items-center">
+                  <Link to={"/login"} className="w-full">
+                    <button className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-2 font-semibold rounded-md w-full transition-all ease-in-out duration-300">
                       Login
                     </button>
                   </Link>
-                  <Link to={"/signup"} className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-1 font-semibold rounded-md w-full hover:transition-all hover:ease-in-out hover:duration-300">
-                    <button className="">
+                  <Link to={"/signup"} className="w-full">
+                    <button className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-2 font-semibold rounded-md w-full transition-all ease-in-out duration-300">
                       Signup
                     </button>
                   </Link>
                 </div>
               </li>
             )}
-            {/* TODO:*/}
 
             {/* if user is logged in */}
             {isLoggedIn && (
               <li className="absolute bottom-4 w-[90%]">
-                <div className="w-full flex items-center justify-center">
-                  <Link to={"/user/profile"} className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-1 font-semibold rounded-md w-full hover:transition-all hover:ease-in-out hover:duration-300">
-                    <button className="">
+                <div className="w-full flex flex-col space-y-2 items-center">
+                  <Link to={"/user/profile"} className="w-full">
+                    <button className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-2 font-semibold rounded-md w-full transition-all ease-in-out duration-300">
                       Profile
                     </button>
                   </Link>
-                  <Link onClick={handleLogout} className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-1 font-semibold rounded-md w-full hover:transition-all hover:ease-in-out hover:duration-300">
-                    <button className="">
+                  <Link onClick={handleLogout} className="w-full">
+                    <button className="bg-[#0095ff] text-white hover:text-[#0095ff] hover:bg-slate-300 px-4 py-2 font-semibold rounded-md w-full transition-all ease-in-out duration-300">
                       Logout
                     </button>
                   </Link>
@@ -136,11 +135,11 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {children}
+      <div className="pt-16">{children}</div>
 
       {/* adding the footer content */}
       <Footer />
-    </div >
+    </div>
   );
 };
 

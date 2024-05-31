@@ -40,6 +40,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import axios from 'axios'
+import axiosInstance from '../Helper/axiosInstance';
 
 export const InputBox = () => {
     const [isChatbotVisible, setIsChatbotVisible] = useState(false);
@@ -69,7 +70,7 @@ export const InputBox = () => {
             setMessages([...messages, { type: 'outgoing', text: inputValue.trim() }]);
             setInputValue('');
         }
-        axios.post("http://localhost:8081/api/v1/question/ask", { question: inputValue })
+        axiosInstance.post("/question/ask", { question: inputValue })
             .then((res) => {
                 // setAnswer(res.data.response)
                 const incomingMessage = { type: 'incoming', text: res.data.response };

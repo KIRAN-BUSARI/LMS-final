@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from "../../Helper/axiosInstance";
 import Roadmap from '../RoadMap';
-import axios from 'axios';
 
 function RoadMap() {
     const [YearsOfExperience, setYearsOfExperience] = useState(0);
@@ -10,7 +9,7 @@ function RoadMap() {
     const [level, setLevel] = useState('')
     const handleSubmit = async () => {
         try {
-            const res = await axios.post("http://localhost:8081/api/v1/level/predict",
+            const res = await axiosInstance.post("/level/predict",
                 {
                     YearsOfExperience: Number(YearsOfExperience),
                     FamilarityWithConcept: FamilarityWithConcept,

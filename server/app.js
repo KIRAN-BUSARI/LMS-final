@@ -3,106 +3,106 @@ import http from "http";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import errorMiddleware from './middlewares/error.middleware.js';
-import fs from "fs/promises";
-import { Server as SocketServer } from 'socket.io';
-import path from "path";
-import chokidar from "chokidar";
-import pty from "node-pty";
+// import fs from "fs/promises";
+// import { Server as SocketServer } from 'socket.io';
+// import path from "path";
+// import chokidar from "chokidar";
+// import pty from "node-pty";
 import cors from "cors";
-const ptyProcess = pty.spawn('bash', [], {
-    name: 'xterm-color',
-    cols: 80,
-    rows: 30,
-    cwd: process.env.INIT_CWD + '/user',
-    env: process.env
-});
+// const ptyProcess = pty.spawn('bash', [], {
+//     name: 'xterm-color',
+//     cols: 80,
+//     rows: 30,
+//     cwd: process.env.INIT_CWD + '/user',
+//     env: process.env
+// });
 
 const app = express();
 const server = http.createServer(app);
-const io = new SocketServer({
-    cors: '*'
-});
+// const io = new SocketServer({
+//     cors: '*'
+// });
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }));
 io.attach(server);
 
-chokidar.watch('./user').on('all', (event, path) => {
-    io.emit('file:refresh', path);
-});
+// chokidar.watch('./user').on('all', (event, path) => {
+//     io.emit('file:refresh', path);
+// });
 
-ptyProcess.onData(data => {
-    io.emit('terminal:data', data);
-});
+// ptyProcess.onData(data => {
+//     io.emit('terminal:data', data);
+// });
 
-io.on('connection', (socket) => {
-    console.log(`Socket connected`, socket.id);
+// io.on('connection', (socket) => {
+//     console.log(`Socket connected`, socket.id);
 
-    socket.emit('file:refresh');
+//     socket.emit('file:refresh');
 
-    socket.on('file:change', async ({ path, content }) => {
-        try {
-            await fs.writeFile(`./user${path}`, content);
-        } catch (error) {
-            console.error('Error writing file:', error);
-            socket.emit('file:error', error.message); // Emitting error back to the client
-        }
-    });
+//     socket.on('file:change', async ({ path, content }) => {
+//         try {
+//             await fs.writeFile(`./user${path}`, content);
+//         } catch (error) {
+//             console.error('Error writing file:', error);
+//             socket.emit('file:error', error.message); // Emitting error back to the client
+//         }
+//     });
 
-    socket.on('terminal:write', (data) => {
-        console.log('Term', data);
-        ptyProcess.write(data);
-    });
-});
+//     socket.on('terminal:write', (data) => {
+//         console.log('Term', data);
+//         ptyProcess.write(data);
+//     });
+// });
 
-app.get('/files', async (req, res) => {
-    try {
-        const fileTree = await generateFileTree('./user');
-        console.log(fileTree);
-        return res.json({ tree: fileTree });
-    } catch (error) {
-        console.error('Error generating file tree:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+// app.get('/files', async (req, res) => {
+//     try {
+//         const fileTree = await generateFileTree('./user');
+//         console.log(fileTree);
+//         return res.json({ tree: fileTree });
+//     } catch (error) {
+//         console.error('Error generating file tree:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
-app.get('/files/content', async (req, res) => {
-    const filePath = req.query.path;
-    try {
-        const content = await fs.readFile(`./user${filePath}`, 'utf-8');
-        return res.json({ content });
-    } catch (error) {
-        console.error('Error reading file:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+// app.get('/files/content', async (req, res) => {
+//     const filePath = req.query.path;
+//     try {
+//         const content = await fs.readFile(`./user${filePath}`, 'utf-8');
+//         return res.json({ content });
+//     } catch (error) {
+//         console.error('Error reading file:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
-server.listen(9000, () => console.log(` Docker server running on port 9000`));
+// server.listen(9000, () => console.log(` Docker server running on port 9000`));
 
-async function generateFileTree(directory, currentTree = {}) {
-    try {
-        const files = await fs.readdir(directory);
+// async function generateFileTree(directory, currentTree = {}) {
+//     try {
+//         const files = await fs.readdir(directory);
 
-        for (const file of files) {
-            const filePath = path.join(directory, file);
-            const stat = await fs.stat(filePath);
+//         for (const file of files) {
+//             const filePath = path.join(directory, file);
+//             const stat = await fs.stat(filePath);
 
-            if (stat.isDirectory()) {
-                currentTree[file] = {}; // Create an empty object for subdirectories
-                await generateFileTree(filePath, currentTree[file]); // Recursively generate tree for subdirectories
-            } else {
-                currentTree[file] = null;
-            }
-        }
-    } catch (error) {
-        console.error('Error reading directory:', error);
-        // Throw error to propagate it up to the caller
-        throw error;
-    }
+//             if (stat.isDirectory()) {
+//                 currentTree[file] = {}; // Create an empty object for subdirectories
+//                 await generateFileTree(filePath, currentTree[file]); // Recursively generate tree for subdirectories
+//             } else {
+//                 currentTree[file] = null;
+//             }
+//         }
+//     } catch (error) {
+//         console.error('Error reading directory:', error);
+//         // Throw error to propagate it up to the caller
+//         throw error;
+//     }
 
-    return currentTree;
-}
+//     return currentTree;
+// }
 
 app.use(morgan('dev'));
 app.use(cookieParser());
